@@ -34,12 +34,16 @@ function App() {
   const SaveLocalStorage=()=>{
     if (todo.length>0) {
       localStorage.setItem("todo",JSON.stringify(todo))      
-    }  
+    }   
   }
   const GetocalStorage=()=>{
-    if (JSON.parse(localStorage.getItem("todo"))!==null) {
-
+    if (JSON.parse(localStorage.getItem("todo"))==null) {
+     
+        localStorage.setItem("todo",JSON.stringify([]))      
+    
+      }else{
       setTodo(JSON.parse(localStorage.getItem("todo")))
+
     }
   }
   return (
