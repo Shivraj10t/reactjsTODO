@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export const Form=({inputText,setInputText,todo,setTodo})=>{
+export const Form=({inputText,setInputText,todo,setTodo,setStstus})=>{
     const inputTextHandler=(e)=>{       
         setInputText(e.target.value)
     }
@@ -18,13 +18,15 @@ export const Form=({inputText,setInputText,todo,setTodo})=>{
         }
      
     }
+    const filterHandler=(e)=>{     
+      setStstus(e.target.value)    }
     return(
 
         <form className="">
           <input  value={inputText} onChange={inputTextHandler} placeholder="ADD TASK...." type="text"/> 
         
           <button onClick={submitTodoHandler} type="submit">Add</button> 
-          <select >
+          <select onChange={filterHandler}>
         <option value="All">All</option>
         <option value="Completed">Completed</option>
         <option value="Uncompleted">Uncompleted</option>

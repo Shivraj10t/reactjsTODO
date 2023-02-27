@@ -1,19 +1,31 @@
 import React from "react";
 
-const Todos=({Completed,text,id})=>{
-
-    const edit=document.querySelectorAll('.edit-btn');
-    for(let x of edit){
-        x.addEventListener('click',function(e){
-console.log(e)
-    })}
+const Todos=({todos,setTodo,id,text,completed,todo})=>{
+const editHandle=()=>{
+  
+    setTodo(todos.map((item)=>{
+if(item.id===todo.id){
+return{
+    ...item,Completed:!item.Completed
+      }
+   }
+   return item;
+}
+))
+    
+ 
+}
+const deleteHandlere=()=>{
+    setTodo(todos.filter(el=>el.id!==todo.id))
+  }
+     
     return(
 <>
 <div className="todo">
-    <li className="todo-item" key={id}>{text} </li>
+    <li className="todo-item" key={id}> {completed!==true? text:<s>{text}</s>} </li>
     <div>
-    <button className="edit-btn"    value={id}> <i className="fa  fa-edit">   &nbsp; </i>EDIT</button>
-    <button className="delete-btn" value={id}><i className="fa  fa-trash"> &nbsp;</i>DELETE</button></div>
+    <button className="edit-btn"  onClick={editHandle}  value={id}> <i className="fa  fa-edit"> </i></button>
+    <button className="delete-btn" onClick={deleteHandlere} value={id}><i className="fa  fa-trash"></i></button></div>
 </div>
 </>
     )
