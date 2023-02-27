@@ -9,9 +9,15 @@ function App() {
   const [todo,setTodo]=useState([])
   const [filterTodos,setfilterTodos]=useState([])
   const [ststus,setStstus]=useState("All")
+
   useEffect(()=>{
     filterHandler();
+    SaveLocalStorage();
   },[todo,ststus])
+  useEffect(()=>{  
+    GetocalStorage();
+
+  },[])
   const filterHandler=()=>{
     switch (ststus) {
       case "Completed":
@@ -21,16 +27,26 @@ function App() {
           setfilterTodos(todo.filter(el=>el.Completed===false))
           break;
       default:
-        setfilterTodos(todo)
-
+        setfilterTodos(todo);
         break;
+    }
+  }
+  const SaveLocalStorage=()=>{
+    if (todo.length>0) {
+      localStorage.setItem("todo",JSON.stringify(todo))      
+    }  
+  }
+  const GetocalStorage=()=>{
+    if (JSON.parse(localStorage.getItem("todo"))!==null) {
+
+      setTodo(JSON.parse(localStorage.getItem("todo")))
     }
   }
   return (
     <div className="App">
    <header><h1>TODO LIST PROJECT </h1></header>
     <Form inputText={inputText} todo={todo} setStstus={setStstus} setInputText={setInputText} setTodo={setTodo}/>
-    <TodoList todos={filterTodos} setTodo={setTodo}/>
+    <TodoList   todos={filterTodos} setTodo={setTodo}/>
     </div>
   );
 }
